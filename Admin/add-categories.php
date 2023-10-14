@@ -8,7 +8,7 @@ include('../middleware/adminMiddleware.php');
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Add Category</h4>
+                    <h4>Add Room Category</h4>
                 </div>
                 <div class="card-body">
                     <form action="code.php" method="POST" enctype="multipart/form-data">
@@ -50,7 +50,7 @@ include('../middleware/adminMiddleware.php');
                                 <input type="checkbox" name="popular" id="popular">
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" name="add_categories_btn">Submit</button>
+                                <button type="submit" class="btn btn-primary" name="add_categories_btn">Add</button>
                             </div>
                         </div>
                     </form>

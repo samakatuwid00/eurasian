@@ -9,7 +9,7 @@ include('../middleware/adminMiddleware.php');
     <div class="row">
         <div class="col-md-12">
             <div class="card-header">
-                <h4>All Room Categories</h4>
+                <h4>All Rooms</h4>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
@@ -25,11 +25,11 @@ include('../middleware/adminMiddleware.php');
                     </thead>
                     <tbody>
                         <?php
-                        $category = getAll("categories");
+                        $rooms = getAll("rooms");
 
-                        if(mysqli_num_rows($category) > 0)
+                        if(mysqli_num_rows($rooms) > 0)
                         {
-                            foreach($category as $item) 
+                            foreach($rooms as $item) 
                             {
                                 ?>
                                     <tr>
@@ -43,11 +43,11 @@ include('../middleware/adminMiddleware.php');
                                         </td>
 
                                         <td>
-                                            <a href="edit-category.php?id=<?= $item['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="edit-rooms.php?id=<?= $item['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
                                         </td>
                                         <td>
                                             <form action="code.php" method="POST">
-                                                <input type="hidden" name="category_id" value="<?= $item['id']; ?>">
+                                                <input type="hidden" name="room_id" value="<?= $item['id']; ?>">
                                                 <button type="submit" class="btn btn-sm btn-danger" name="delete-category_btn">Delete</button>
                                             </form>
                                         </td>

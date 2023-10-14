@@ -114,4 +114,116 @@ else if(isset($_POST['delete-category_btn']))
         redirect("category.php", "Something Went Wrong" );
     }
 }
+else if(isset($_POST['add_rooms_btn']))
+{
+     
+    $category_id = $_POST['category_id'];
+
+    $name = $_POST['name'];
+    $slug = $_POST['slug'];
+    $small_description = $_POST['small_description'];
+    $description = $_POST['description'];
+    $selling_price = $_POST['selling_price'];
+    $meta_title = $_POST['meta_title'];
+    $meta_description = $_POST['meta_description'];
+    $meta_keywords = $_POST['meta_keywords'];
+    $status = isset ($_POST['status']) ? '1':'0';
+    $trending = isset ($_POST['trending']) ? '1':'0';
+
+    $image = $_FILES['image']['name'];
+
+    $path = "../Images";
+
+    $image_ext = pathinfo($image, PATHINFO_EXTENSION);
+    $filename = time().'-'.$image_ext;
+
+    if($name != "" && $slug !="" && $description != "")
+    {
+        $rooms_query= "INSERT INTO rooms (category_id, name, slug, small_description, description, selling_price,
+        meta_title, meta_description, meta_keywords, status, trending, image) VALUES ('$category_id', '$name', '$slug',
+        '$small_description', '$description', '$selling_price', '$meta_title', '$meta_description', '$meta_keywords',
+        '$status', '$trending', '$filename')";
+    
+        $rooms_query_run = mysqli_query($con, $rooms_query);
+    
+        if($rooms_query_run)
+        {
+            move_uploaded_file($_FILES['image']['tmp_name'], $path.'/'.$filename); 
+    
+            redirect("add-rooms.php", "Category Added Successfully");
+        }
+        else
+        {
+            redirect("add-rooms.php", "Something Went Wrong");
+        }
+    }
+    else
+    {
+        redirect("add-rooms.php", "All Fields Are Mandatory");
+    }
+}
+else if (isset($_POST['update_rooms_btn']))
+{
+    $rooms_id = $_POST['rooms_id'];
+    $category_id = $_POST['category_id'];
+
+    $name = $_POST['name'];
+    $slug = $_POST['slug'];
+    $small_description = $_POST['small_description'];
+    $description = $_POST['description'];
+    $selling_price = $_POST['selling_price'];
+    $meta_title = $_POST['meta_title'];
+    $meta_description = $_POST['meta_description'];
+    $meta_keywords = $_POST['meta_keywords'];
+    $status = isset ($_POST['status']) ? '1':'0';
+    $trending = isset ($_POST['trending']) ? '1':'0';
+
+    $image = $_FILES['image']['name'];
+
+    $path = "../Images";
+
+    $image_ext = pathinfo($image, PATHINFO_EXTENSION);
+    $filename = time().'-'.$image_ext;
+
+    $new_image = $_FILES['image']['name'];
+    $old_image = $_POST['old_image'];
+
+    if($new_image != "")
+    {
+        $image_ext = pathinfo($new_image, PATHINFO_EXTENSION);
+        $update_filename = time().'.'.$image_ext;    
+    }
+    else
+    {
+        $update_filename = $old_image;
+    }
+
+    $update_rooms_query = "UPDATE rooms SET name='$name',slug='$slug',small_description='$small_description',
+    description='$description',selling_price='$selling_price',meta_title='$meta_title',
+    meta_description='$meta_description',meta_keywords='$meta_keywords',status='$status',trending='$trending',
+    image='$update_filename' WHERE id='$rooms_id'";
+    $update_rooms_query_run = mysqli_query($con, $update_rooms_query);
+
+
+if($update_rooms_query_run)
+    {
+        if($_FILES['image']['name'] != "")
+        {
+            move_uploaded_file($_FILES['image']['tmp_name'], $path.'/'.$update_filename);
+            if(file_exists("../Images/" .$old_image))
+            {
+                unlink("../Images/".$old_image);
+            }
+        }    
+        redirect("edit-rooms.php?id=$rooms_id", "Rooms Updated Successfully");
+    }
+    else
+    {
+        redirect("edit-rooms.php?id=$rooms_id", "Something Went Wrong");
+    }
+}
+else
+{
+    header('Location: ../index.php');
+}
 ?>

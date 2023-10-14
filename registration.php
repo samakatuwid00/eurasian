@@ -101,7 +101,7 @@ include('index.php'); ?>
             ?>
             <input type="text" name="name" placeholder="Name *" required />
             <input type="email" name="email" placeholder="Email *" required />
-            <input type="number" name="contact" placeholder="Phone Number *" required />
+            <input type="text" name="contact" placeholder="Phone Number *" required />
             <input type="address" name="address" placeholder="Address *" required />
             <input type="password" name="password" placeholder="Password *" required />
             <input type="password" name="confirmPass" placeholder="Confirm Password *" required />
