@@ -84,11 +84,20 @@ include('index.php'); ?>
     input::placeholder, textarea::placeholder {
         color: white;   
     }
+        .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 35px;
+    cursor: pointer;
+    color: white;
+}
 </style>
 
 <div class="overlay" id="overlay"></div>
 <div class="login-page">
     <div class="form">
+    <span class="close-icon" id="close-login-form">×</span>
     <form class="login-form" action="functions/authcode.php" method="POST">
         <h2 style="color: white;"><i>Welcome to Eurasian!</i></h2>
         <input type="text" name="email" placeholder="Email" required />
@@ -98,3 +107,10 @@ include('index.php'); ?>
     </form> 
     </div>
 </div>
+<script>
+    // JavaScript to close the register form
+    document.getElementById("close-login-form").addEventListener("click", function () {
+        document.querySelector(".login-page").style.display = "none";
+    });
+</script>
+

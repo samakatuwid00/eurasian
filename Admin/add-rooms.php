@@ -1,6 +1,8 @@
 <?php 
-include('includes/header.php'); 
+
 include('../middleware/adminMiddleware.php'); 
+include('includes/header.php'); 
+
 ?>
 
 <div class="container">
@@ -53,14 +55,14 @@ include('../middleware/adminMiddleware.php');
                                 <textarea rows="3" required name="description" placeholder="Enter description" class="form-control mb-2"></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label class="mb-0">Price</label class="mb-0">
-                                <input type="text" required name="selling_price" value="<?= $data['selling_price']; ?>" placeholder="Selling Price" class="form-control mb-2">
+                                <label class="mb-0">Price</label>
+                                <input type="text" required name="selling_price" value="<?= isset($data['selling_price']) ? $data['selling_price'] : ''; ?>" placeholder="Selling Price" class="form-control mb-2">
                             </div>
                             <div class="col-md-12">
-                                <label class="mb-0">Upload Image</label class="mb-0">
+                                <label class="mb-0">Upload Image</label>
                                 <input type="file" required name="image" class="form-control mb-2">
                                 <label class="mb-0">Current Image</label>
-                                <img src="../Images/<?= $data['image']; ?>" alt="Rooms Image" height="50px" width="50px">
+                                <img src="../Images/<?= isset($data['image']) ? $data['image'] : ''; ?>" alt="Rooms Image" height="50px" width="50px">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

@@ -11,7 +11,7 @@ include('index.php'); ?>
         background-size: cover;
     }
     .register-page {
-        width: 500px; /* Reduced width */
+        width: 500px;
         margin: auto;
     }
     .form {
@@ -19,8 +19,8 @@ include('index.php'); ?>
         text-align: center;
         top: 50%;
         left: 50%;
-        width: 350px; /* Reduced width */
-        padding: 20px; /* Reduced padding */
+        width: 350px; 
+        padding: 20px; 
         transform: translate(-50%, -50%);
         background: rgba(128, 128, 128, 0.7);
         box-sizing: border-box;
@@ -32,19 +32,19 @@ include('index.php'); ?>
     }
     .form input {
         width: 100%;
-        padding: 10px 0; /* Reduced padding */
-        font-size: 12px; /* Reduced font size */
+        padding: 10px 0;
+        font-size: 12px;
         color: #fdfcfc;
-        margin-bottom: 20px; /* Reduced margin */
+        margin-bottom: 20px;
         border: none;
         border-bottom: 1px solid #fff;
         outline: none;
         background: transparent;
     }
     .form .message {
-        margin: 20px 0 0; /* Reduced margin */
+        margin: 20px 0;
         color: #f2ebeb;
-        font-size: 13px; /* Reduced font size */
+        font-size: 13px;
     }
     .form .message a {
         color: #34bcde;
@@ -62,30 +62,39 @@ include('index.php'); ?>
         color: #289bb8;
         font-size: 14px;
         text-decoration: none;
-        border: 2px solid #289bb8; /* Add border */
+        border: 2px solid #289bb8;
         border-radius: 5px;
-        background-color: transparent; /* Transparent background */
-        transition: .5s;
+        background-color: transparent;
+        transition: 0.5s;
         margin-top: 15px;
         letter-spacing: 2px;
         overflow: hidden;
-        cursor: pointer; /* Add cursor pointer */
+        cursor: pointer;
     }
     .button:hover {
         background: #289bb8;
         color: #dae3e8;
-    } 
+    }
     input, textarea {
         color: white;
     }
     input::placeholder, textarea::placeholder {
-        color: white;   
+        color: white;
+    }
+    .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 35px;
+    cursor: pointer;
+    color: white;
     }
 </style>
 
 <div class="overlay" id="overlay"></div>
 <div class="register-page">
     <div class="form">
+        <span class="close-icon" id="close-register-form">×</span>
         <form class="register-form" action="functions/authcode.php" method="POST">
             <h2 style="color: white;">Register</h2>
             <?php
@@ -93,9 +102,9 @@ include('index.php'); ?>
                 ?>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <?= $_SESSION['message']; ?>.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <?php
+                    <button type="submit" name="register_btn" class="button">Create</button>
+                </div>                
+                    <?php
                 unset($_SESSION['message']);
             }
             ?>
@@ -111,3 +120,9 @@ include('index.php'); ?>
         </form>
     </div>
 </div>
+<script>
+    // JavaScript to close the register form
+    document.getElementById("close-register-form").addEventListener("click", function () {
+        document.querySelector(".register-page").style.display = "none";
+    });
+</script>

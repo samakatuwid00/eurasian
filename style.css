@@ -12,7 +12,7 @@ body {
 .alert-container {
     width: 100%;
     background-color: #f8f9fa;
-    padding: 0px; 
+    padding: 0%; 
     text-align: center;
 }
 .navbar {
@@ -492,7 +492,7 @@ h2 {
 }
 .about-us-image img {
     max-width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 15px;
 }
 .about-us-image img {
@@ -505,7 +505,7 @@ h2 {
 }
 .about-image-container {
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden; /* Change to overflow: hidden to hide the scroll bar */
 }
 .about-image-container img {
     max-width: 100%;

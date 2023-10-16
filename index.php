@@ -15,7 +15,6 @@ include('includes/header.php'); ?>
         unset($_SESSION['message']);
     }
     ?>
-
 <!-- Banner -->
     <div class="banner">
         <div class="banner-content">
@@ -44,7 +43,7 @@ include('includes/header.php'); ?>
             <button type="submit">Check Availability</button>
         </form>  
     </div>  
-    <div class="room-options">
+    <div class="room-options" id="our-rooms-section">        
         <h2>Rooms</h2>
         <div class="row">
             <!-- Room option 1 -->

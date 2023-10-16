@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 include('../config/dbcon.php');
 include('../functions/myfunctions.php');
 
@@ -88,7 +86,7 @@ else if(isset($_POST['update_category_btn']))
         redirect("edit-category.php?id=$category_id", "Something Went Wrong");
     }
 }
-else if(isset($_POST['delete-category_btn']))
+else if(isset($_POST['delete_category_btn']))
 {
     $category_id = mysqli_real_escape_string($con, $_POST['category_id']);
 
@@ -107,11 +105,13 @@ else if(isset($_POST['delete-category_btn']))
             unlink("../Images/".$image);
         }
 
-        redirect("category.php", "Category Deleted Succesfully");
+        // redirect("category.php", "Category Deleted Succesfully");
+        echo 200;
     }
     else
     {
-        redirect("category.php", "Something Went Wrong" );
+        // redirect("category.php", "Something Went Wrong" );
+        echo 500;
     }
 }
 else if(isset($_POST['add_rooms_btn']))
@@ -220,6 +220,34 @@ if($update_rooms_query_run)
     else
     {
         redirect("edit-rooms.php?id=$rooms_id", "Something Went Wrong");
+    }
+}
+else if (isset($_POST['delete_rooms_btn']))
+{
+    $rooms_id = mysqli_real_escape_string($con, $_POST['rooms_id']);
+
+    $rooms_query= "SELECT * FROM rooms WHERE id='$rooms_id'";
+    $rooms_query_run = mysqli_query($con, $rooms_query);
+    $rooms_data = mysqli_fetch_array($rooms_query_run); 
+    $image = $rooms_data['image'];
+
+    $delete_query = "DELETE FROM rooms WHERE id='$rooms_id' ";
+    $delete_query_run = mysqli_query($con, $delete_query);
+
+    if($delete_query_run)
+    {
+        if(file_exists("../Images/".$image))
+        {
+            unlink("../Images/".$image);
+        }
+
+       // redirect("rooms.php", "Rooms Deleted Succesfully");
+       echo 200;
+    }
+    else
+    {
+       // redirect("rooms.php", "Something Went Wrong!" );
+        echo 500;
     }
 }
 else
