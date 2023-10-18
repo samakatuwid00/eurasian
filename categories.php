@@ -10,6 +10,10 @@ include('includes/header.php');
     font-size: 17px;
     margin-left: 20px;
     }
+    .container2 h6 a {
+    text-decoration: none; 
+    color: #ffffff; 
+    }   
     .container1 {
         padding: 20px;
     }
@@ -37,10 +41,16 @@ include('includes/header.php');
 </style>
 <div class="py-3 bg-primary">
     <div class="container2">
-        <h6 class="text-white">Home / Rooms</h6>
+        <h6 class="text-white"> 
+        <a href="index.php">
+            Home / 
+        </a>
+        <a href="categories.php">
+            Rooms / 
+        </a></h6>
     </div>
 </div>
-<div class="py-5">
+<div class="py-3">
     <div class="container1">
         <div class="row">
             <div class="col-md-12">
