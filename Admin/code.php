@@ -150,7 +150,7 @@ else if(isset($_POST['add_rooms_btn']))
         {
             move_uploaded_file($_FILES['image']['tmp_name'], $path.'/'.$filename); 
     
-            redirect("add-rooms.php", "Category Added Successfully");
+            redirect("add-rooms.php", "Room Added Successfully");
         }
         else
         {

@@ -20,7 +20,7 @@ include('includes/header.php'); ?>
         <div class="banner-content">
             <h1 class="animated-heading">Eurasian Paradise Resort</h1>
             <p class="animated-subtext">Your Ultimate Destination for Relaxation and Luxury</p>
-            <a href="#" class="btn btn-primary animated-button">Book Now</a>
+            <a href="login.php" class="btn btn-primary animated-button">Book Now</a>
         </div>
     </div>
 <!-- Our Rooms -->

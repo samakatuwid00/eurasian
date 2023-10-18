@@ -3,8 +3,8 @@
     <div class="navbar-logo">Eurasian Paradise Resort</div>
         <ul class="navbar-menu" id="navLinks">
             <span class="material-symbols-outlined" onclick="hideMenu()"> close </span>                    
-                <li><a class="navbar-menu-item" href="#">Home</a></li>
-                <li><a class="navbar-menu-item" href="index.php#our-rooms-section">Rooms</a></li>
+                <li><a class="navbar-menu-item" href="index.php">Home</a></li>
+                <li><a class="navbar-menu-item" href="categories.php">Rooms</a></li>
                 <li><a class="navbar-menu-item" href="#">Services</a></li>
                 <li><a class="navbar-menu-item" href="#">About Us</a></li>
                 <li><a class="navbar-menu-item" href="#">Contact</a></li>
