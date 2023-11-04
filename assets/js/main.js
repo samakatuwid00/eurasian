@@ -102,3 +102,40 @@ document.addEventListener("DOMContentLoaded", function () {
         registrationForm.style.display = "none";
     });
 });
+// JavaScript to add animation to the register button when clicked
+document.querySelector(".button").addEventListener("click", function() {
+    this.classList.add("animate");
+});
+
+const slides = document.querySelectorAll('.slide');
+const prevButton = document.getElementById('prev');
+const nextButton = document.getElementById('next');
+let currentSlide = 0;
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        if (i === index) {
+            slide.style.display = 'block';
+        } else {
+            slide.style.display = 'none';
+        }
+    });
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+
+nextButton.addEventListener('click', nextSlide);
+prevButton.addEventListener('click', prevSlide);
+
+// Auto-play the slider
+setInterval(nextSlide, 5000); // Change slide every 5 seconds
+showSlide(currentSlide);
+

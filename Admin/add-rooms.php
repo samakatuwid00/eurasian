@@ -17,7 +17,7 @@ include('includes/header.php');
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="mb-0" for="name">Category</label class="mb-0">
-                                <select name="category_id" class="form-select mb-2">
+                                <select name="category_id" class="form-select mb-2" required>
                                     <option selected>Select Category</option>                                    
                                     <?php
                                         $categories = getAll("categories");
@@ -56,7 +56,7 @@ include('includes/header.php');
                             </div>
                             <div class="col-md-6">
                                 <label class="mb-0">Price</label>
-                                <input type="text" required name="selling_price" value="<?= isset($data['selling_price']) ? $data['selling_price'] : ''; ?>" placeholder="Selling Price" class="form-control mb-2">
+                                <input type="number" required name="selling_price" value="<?= isset($data['selling_price']) ? $data['selling_price'] : ''; ?>" placeholder="Selling Price" class="form-control mb-2">
                             </div>
                             <div class="col-md-12">
                                 <label class="mb-0">Upload Image</label>
@@ -91,7 +91,7 @@ include('includes/header.php');
                                 <textarea rows="3" required name="meta_keywords" placeholder="Enter Meta Keywords" class="form-control mb-2"></textarea>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" name="add_rooms_btn">Add</button>
+                                <button type="submit" class="btn btn-primary" name="add_rooms_btn">Add Room</button>
                             </div>
                         </div>
                     </form>

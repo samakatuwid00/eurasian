@@ -28,14 +28,6 @@
           </a>
         </li>  
         <li class="nav-item">
-          <a class="nav-link text-white <?= $page == "add-categories.php"?'active bg-gradient-primary':''; ?> " href="add-categories.php">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">table_view</i>
-            </div>
-            <span class="nav-link-text ms-1">Add Room Category</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link text-white <?= $page == "rooms.php"?'active bg-gradient-primary':''; ?>" href="rooms.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
@@ -44,13 +36,13 @@
           </a>
         </li>  
         <li class="nav-item">
-          <a class="nav-link text-white <?= $page == "add-rooms.php"?'active bg-gradient-primary':''; ?>" href="add-rooms.php">
+          <a class="nav-link text-white <?= $page == "users.php"?'active bg-gradient-primary':''; ?>" href="users.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
-            <span class="nav-link-text ms-1">Add Rooms</span>
+            <span class="nav-link-text ms-1">Users</span>
           </a>
-        </li>
+        </li>  
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">

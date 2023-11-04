@@ -30,9 +30,9 @@
     <script src="assets/js/perfect-scrollbar.min.js"></script>
     <script src="assets/js/smooth-scrollbar.min.js"></script>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>"
-
     <script src="assets/js/custom.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>"
 
     <!--    Alertify     -->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
@@ -49,6 +49,20 @@
         } 
         ?>
     </script>
-
+    <script>
+    // Add a click event handler for the "Ban" buttons
+    const banButtons = document.querySelectorAll('.ban_users_btn');
+    banButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.innerText === 'Ban') {
+                button.innerText = 'Unban';
+                // You can add code here to perform the banning action.
+            } else {
+                button.innerText = 'Ban';
+                // You can add code here to perform the unbanning action.
+            }
+        });
+    });
+    </script>
 </body>
 </html>

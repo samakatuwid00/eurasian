@@ -18,7 +18,7 @@ include('includes/header.php');
                 {
                     $data = mysqli_fetch_array($category);
                     ?>
-                        <div class="card">
+                    <div class="card">
                     <div class="card-header">
                         <h4>Edit Category
                         <a href="category.php" class="btn btn-primary float-end">Back</a>

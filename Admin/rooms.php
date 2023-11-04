@@ -60,6 +60,9 @@ include('includes/header.php');
                     </tbody>
                 </table>
             </div>
+            <div style="text-align: left;">
+                <a href="add-rooms.php" class="btn btn-success">Add More Rooms</a>
+            </div>            
         </div>
     </div>
 </div>

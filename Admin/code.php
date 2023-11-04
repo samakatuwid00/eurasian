@@ -250,6 +250,33 @@ else if (isset($_POST['delete_rooms_btn']))
         echo 500;
     }
 }
+elseif (isset($_POST['ban_users_btn'])) {
+    // Handle user banning
+    $users_id = mysqli_real_escape_string($con, $_POST['users_id']);
+
+    // You can set the user's "status" field to indicate they are banned (e.g., status=2 for banned users).
+    $ban_query = "UPDATE users SET status='2' WHERE id='$users_id'";
+    $ban_query_run = mysqli_query($con, $ban_query);
+    if ($ban_query_run) {
+        echo 200; // Success
+    } else {
+        echo 500; // Error
+    }
+}
+elseif (isset($_POST['unban_users_btn'])) {
+    // Handle user banning
+    $users_id = mysqli_real_escape_string($con, $_POST['users_id']);
+
+    // You can set the user's "status" field to indicate they are banned (e.g., status=2 for banned users).
+    $ban_query = "UPDATE users SET status='0' WHERE id='$users_id'";
+    $ban_query_run = mysqli_query($con, $ban_query);
+    if ($ban_query_run) {
+        echo 200; // Success
+    } else {
+        echo 500; // Error
+    }
+}
+
 else
 {
     header('Location: ../index.php');

@@ -1,5 +1,5 @@
 <?php 
-session_start();
+include('functions/userfunctions.php');
 include('includes/header.php'); ?>
 
     <?php
@@ -15,15 +15,40 @@ include('includes/header.php'); ?>
         unset($_SESSION['message']);
     }
     ?>
-<!-- Banner -->
-    <div class="banner">
-        <div class="banner-content">
-            <h1 class="animated-heading">Eurasian Paradise Resort</h1>
-            <p class="animated-subtext">Your Ultimate Destination for Relaxation and Luxury</p>
-            <a href="login.php" class="btn btn-primary animated-button">Book Now</a>
-        </div>
-    </div>
-<!-- Our Rooms -->
+    <?php
+    if (isset($registrationFormVisible) && $registrationFormVisible) {
+        $overlayClass = "overlay-visible";
+        $indexClass = "index-blur";
+    } else {
+        $overlayClass = "";
+        $indexClass = "";
+    }
+    ?>
+    <?php
+    // Check if the user is logged in
+    if (isset($_SESSION['auth']) && $_SESSION['auth']) {
+        // User is logged in, display the "categories.php" link
+        echo '<!-- Banner -->
+        <div class="banner">
+            <div class="banner-content">
+                <h1 class="animated-heading">Eurasian Paradise Resort</h1>
+                <p class="animated-subtext">Your Ultimate Destination for Relaxation and Luxury</p>
+                <a href="categories.php" class="btn btn-primary animated-button">Book Now</a>
+            </div>
+        </div>';
+    } else {
+        // User is not logged in, display the "login.php" link
+        echo '<!-- Banner -->
+        <div class="banner">
+            <div class="banner-content">
+                <h1 class="animated-heading">Eurasian Paradise Resort</h1>
+                <p class="animated-subtext">Your Ultimate Destination for Relaxation and Luxury</p>
+                <a href="login.php" class="btn btn-primary animated-button">Book Now</a>
+            </div>
+        </div>';
+    }
+    ?>
+    <!-- Our Rooms -->
     <div class="container">
         <form class="checking-form">
             <label for="check-in">Check-in Date</label>
@@ -38,48 +63,41 @@ include('includes/header.php'); ?>
                 <option value="two">Two</option>
                 <option value="three">Three</option>
                 <option value="four">Four</option>
-                <option value="five">Five</option>
+                <option value="five">More</option>
             </select>   
             <button type="submit">Check Availability</button>
         </form>  
     </div>  
-    <div class="room-options" id="our-rooms-section">        
+    <div class="room-options" id="our-rooms-section">
         <h2>Rooms</h2>
         <div class="row">
-            <!-- Room option 1 -->
-            <div class="col-md-3 room-option">
-                <img src="Images/image (6).jpg" alt="Room Type 1" class="room-image">
-                <h3>Bermuda</h3>
-                <p>Spacious room with a king-size bed and ocean view.</p>
-                <button class="btn btn-secondary">Select</button>
-            </div>
-            <!-- Room option 2 -->
-            <div class="col-md-3 room-option">
-                <img src="Images/image (9).jpg" alt="Room Type 2" class="room-image">
-                <h3>Elegance</h3>
-                <p>Luxurious suite with a private terrace and jacuzzi.</p>
-                <button class="btn btn-secondary">Select</button>
-            </div>
-            <!-- Room option 3 -->
-            <div class="col-md-3 room-option">
-                <img src="Images/image (24).jpg" alt="Room Type 3" class="room-image">
-                <h3>Native House 1</h3>
-                <p>Spacious suite with two bedrooms, perfect for families.</p>
-                <button class="btn btn-secondary">Select</button>
-            </div>
-            <!-- Room option 4 -->
-            <div class="col-md-3 room-option">
-                <img src="Images/image (42).jpg" alt="Room Type 4" class="room-image">
-                <h3>Native House 2</h3>
-                <p>High-end suite with a private office and city view.</p>
-                <button class="btn btn-secondary">Select</button>
-            </div>
+            <?php
+            // Fetch room data from the database
+            $categories = getAllActive("categories");
+
+            if(mysqli_num_rows($categories) > 0)
+            {
+                while ($room = mysqli_fetch_assoc($categories)) {
+                    ?>
+                    <div class="col-md-3 room-option">
+                        <img src="Images/<?= $room['image']; ?>" alt="<?= $room['name']; ?>" class="room-image">
+                        <h3><?= $room['name']; ?></h3>
+                        <p><?= $room['description']; ?></p>
+                        <a href="rooms.php?categories=<?= $room['slug']; ?>" class="btn btn-outline-primary">Select</a>                    </div>
+                    <?php
+                }
+            }
+            else
+            {
+                echo "No rooms available";
+            }
+            ?>
         </div>
     </div>
     <!-- Services -->
-    <section class="amenities">
+    <section class="amenities" id="our-amenities-list">
         <h2>Services</h2>
-        <div class="amenities-list">
+        <div class="amenities-list">        
             <div class="amenity large">
                 <img src="Images/icons8-balcony-96.png" alt="Sea View Balcony" class="icon">
                 <h3>Sea View Balcony</h3>
@@ -103,7 +121,7 @@ include('includes/header.php'); ?>
         </div>
     </section>
     <!-- About Us -->
-    <section class="about-us">
+    <section class="about-us" id="our-about-us-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 about-us-content">
@@ -116,7 +134,16 @@ include('includes/header.php'); ?>
                     <div class="about-image-container">
                         <img src="Images/image (28).jpg" alt="About Us Image">
                         <div class="image-overlay">
-                            <a href="#" class="book-now-button">Book Now</a>
+                            <?php
+                            // Check if the user is logged in
+                            if (isset($_SESSION['auth']) && $_SESSION['auth']) {
+                                // User is logged in, display the "categories.php" link
+                                echo '<a href="categories.php" class="book-now-button">Book Now!</a>';
+                            } else {
+                                // User is not logged in, display the "login.php" link
+                                echo '<a href="login.php" class="book-now-button">Book Now!</a>';
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -201,7 +228,7 @@ include('includes/header.php'); ?>
         </div>
     </section>
 <!-- Contact Us Section -->
-<section class="contact">
+<section class="contact" id="our-contact-section">
     <h2>Contact</h2>
     <div class="container">
         <div class="contact-content">

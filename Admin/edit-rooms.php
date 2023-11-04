@@ -30,7 +30,7 @@ include('includes/header.php');
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label class="mb-0" for="name">Category</label class="mb-0">
-                                                <select name="category_id" class="form-select mb-2">
+                                                <select name="category_id" class="form-select mb-2" required>
                                                     <option selected>Select Category</option>                                    
                                                     <?php   
                                                         $categories = getAll("categories");

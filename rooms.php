@@ -51,7 +51,7 @@ if(isset($_GET['categories']))
         <div class="py-3 bg-primary">
             <div class="container2">
                 <h6 class="text-white"> 
-                <a href="categories.php">
+                <a href="index.php">
                     Home / 
                 </a>
                 <a href="categories.php">
@@ -75,7 +75,7 @@ if(isset($_GET['categories']))
                                     {
                                         ?>
                                             <div class ="col-md-4 mb-2">
-                                                <a href="#">
+                                                <a href="rooms-view.php?rooms=<?= $item['slug']; ?>">
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <img src="Images/<?= $item['image']; ?>" alt="Room Image" class="w-100">
@@ -109,4 +109,5 @@ else
 {
     echo "Something Went Wrong";
 }
-include('includes/footer.php'); ?>
+
+?>

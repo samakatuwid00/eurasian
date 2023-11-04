@@ -64,6 +64,9 @@ include('includes/header.php');
                     </tbody>
                 </table>
             </div>
+            <div style="text-align: left;">
+                <a href="add-categories.php" class="btn btn-success">Add Room Category</a>
+            </div>            
         </div>
     </div>
 </div>
