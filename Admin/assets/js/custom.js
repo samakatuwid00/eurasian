@@ -67,7 +67,7 @@ $(document).ready(function () {
         });
     });
 
-    // Separate the ban users and unban users event handlers
+    // Ban users
     $(document).on('click', '.ban_users_btn', function (e) {
         e.preventDefault();
 
@@ -91,8 +91,9 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response == 200) {
                             swal("Success!", "User Banned Successfully", "success");
-                            // Reload the users table
-                            $("#users_table").load(location.href + " #users_table");
+                            // Remove the user row from the table
+                            $("#user_table").load(location.href + " #user_table");
+                            //$("#user_row_" + id).remove();
                         } else if (response == 500) {
                             swal("Error!", "Something Went Wrong!", "error");
                         }
@@ -102,6 +103,7 @@ $(document).ready(function () {
         });
     });
 
+    // Unban users
     $(document).on('click', '.unban_users_btn', function (e) {
         e.preventDefault();
 
@@ -125,8 +127,9 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response == 200) {
                             swal("Success!", "User Unbanned Successfully", "success");
-                            // Reload the users table
-                            $("#users_table").load(location.href + " #users_table");
+                            // Remove the user row from the table
+                            $("#user_table").load(location.href + " #user_table");
+                            //$("#user_row_" + id).remove();
                         } else if (response == 500) {
                             swal("Error!", "Something Went Wrong!", "error");
                         }

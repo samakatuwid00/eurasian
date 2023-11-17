@@ -1,14 +1,49 @@
 <?php
 include('../config/dbcon.php');
 include('myfunctions.php');
-include('../smtp/PHPMailerAutoload.php');
 
 $email = $password = $err_msg = "";
 $remember = "";
+include('../smtp/PHPMailerAutoload.php');
+
+$otp=rand(100000,999999);
+$receiverEmail="abaygherjr07@gmail.com";
+$subject="Email Verification";
+$emailbody="Your 6 Digit OTP Code: ";
+
+echo smtp_mailer($receiverEmail,$subject,$emailbody.$otp);
+
+function smtp_mailer($to,$subject, $msg){
+	$mail = new PHPMailer(); 
+	$mail->IsSMTP(); 
+	$mail->SMTPAuth = true; 
+	$mail->SMTPSecure = 'tls'; 
+	$mail->Host = "smtp.gmail.com";
+	$mail->Port = 587; 
+	$mail->IsHTML(true);
+	$mail->CharSet = 'UTF-8';
+	//$mail->SMTPDebug = 2; 
+	$mail->Username = "abayrogerjr07@gmail.com"; //write sender email address
+	$mail->Password = "zhxhzjzdbaluskfn"; //write app password of sender email
+	$mail->SetFrom("abayrogerjr07@gmail.com"); //write sender email address
+	$mail->Subject = $subject;
+	$mail->Body =$msg;
+	$mail->AddAddress($to);
+	$mail->SMTPOptions=array('ssl'=>array(
+		'verify_peer'=>false,
+		'verify_peer_name'=>false,
+		'allow_self_signed'=>false
+	));
+	if(!$mail->Send()){
+		echo $mail->ErrorInfo;
+	}else{
+		echo "We've sent 6 Digit OTP code to your email: ".$to;
+	}
+}
 
 if (isset($_POST['register_btn'])) {
     // Generate OTP
-    //$otp = rand(100000, 999999);
+    $otp = rand(100000, 999999);
 
     // Your existing code for other user inputs
     $name = mysqli_real_escape_string($con, $_POST['name']);
@@ -17,31 +52,25 @@ if (isset($_POST['register_btn'])) {
     $address = mysqli_real_escape_string($con, $_POST['address']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $confirmPass = mysqli_real_escape_string($con, $_POST['confirmPass']);
-    $verify_token = md5(rand());
 
     // Check if email exists
-    $check_email_query = "SELECT email FROM users WHERE email = '$email' LIMIT 1";
+    $check_email_query = "SELECT email FROM users WHERE email = '$email'";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
     if (mysqli_num_rows($check_email_query_run) > 0) {
-        smtp_mailer($email,$verify_token,$subject);
         $_SESSION['message'] = "Email already registered";
         header('Location: ../registration.php');
     } else {
         // Insert user with OTP into the database
-        $insert_query = "INSERT INTO users (name,email,contact,address,status,password,confirmPass,verify_token) VALUES ('$name','$email','$contact','$address','$status','$password','$confirmPass','$verify_token')";
+        $insert_query = "INSERT INTO users (name,email,contact,address,password,confirmPass,otp) VALUES ('$name','$email','$contact','$address','$password','$confirmPass','$otp')";
         $insert_query_run = mysqli_query($con, $insert_query);
 
         if ($insert_query_run) {
             // Send verification email
-            $subject = "Email Verification from Eurasian Paradise Resort";
-            // $emailbody=
-            // "<h2>You have Registered with Eurasian Paradise Resort</h2>
-            // <h5>Verify your email address to Login with the below given link</h5>
-            // <br></br>
-            // <a href='http://localhost/Eurasian%20Paradise%20Resort%20System/verify-email.php?token=$verify_token'> Click Me </a>";
-            // //$msg = $emailbody . $otp;
-            smtp_mailer($email,$verify_token,$subject);
+            $subject = "Email Verification";
+            $emailbody = "Your 6 Digit OTP Code: ";
+            $msg = $emailbody . $otp;
+            smtp_mailer($email, $subject, $msg);
 
             $_SESSION['message'] = "Registered Successfully. Check your email for verification.";
             header('Location: ../login.php');
@@ -69,7 +98,7 @@ else if(isset($_POST['login_btn'])) {
         $role_as = $userdata['role_as'];
         $status = $userdata['status']; // Add this line to get the user's status
 
-        if ($status != 0) {
+        if ($status == 2) {
             // User is banned, prevent login
             $_SESSION['message'] = "Sorry, You Are Banned And Cannot Log In";
             header('Location: ../login.php');
@@ -101,42 +130,4 @@ else if(isset($_POST['login_btn'])) {
         header('Location: ../login.php');
     }
 }
-// $otp=rand(100000,999999);
-$receiverEmail=$email;
-$subject="Email Verification from Eurasian Paradise Resort";
-
-// echo smtp_mailer($receiverEmail,$subject,$emailbody);
-function smtp_mailer($email,$verify_token,$subject){
-	$mail = new PHPMailer(); 
-	$mail->IsSMTP(); 
-	$mail->SMTPAuth = true; 
-	$mail->SMTPSecure = 'tls'; 
-	$mail->Host = "smtp.gmail.com";
-	$mail->Port = 587; 
-	$mail->IsHTML(true);
-	$mail->CharSet = 'UTF-8';
-	//$mail->SMTPDebug = 2; 
-	$mail->Username = "eurasian32@gmail.com"; //write sender email address
-	$mail->Password = "vvtkmgaebnqxmvjw"; //write app password of sender email
-	$mail->SetFrom("eurasian32@gmail.com"); //write sender email address
-	$mail->Subject = $subject;
-    $emailbody=
-    "<h2>You have Registered with Eurasian Paradise Resort</h2>
-    <h5>Verify your email address to Login with the below given link</h5>
-    <br></br>
-    <a href='http://localhost/Eurasian%20Paradise%20Resort%20System/verify-email.php?token=$verify_token'> Click Me </a>";
-    $mail->Body =$emailbody;
-	$mail->AddAddress($email);
-	$mail->SMTPOptions=array('ssl'=>array(
-		'verify_peer'=>false,
-		'verify_peer_name'=>false,
-		'allow_self_signed'=>false
-	));
-	if(!$mail->Send()){
-		echo $mail->ErrorInfo;
-	}else{
-		echo "We've sent 6 Digit OTP code to your email: ".$email;
-	}
-}
-
 

@@ -169,6 +169,17 @@ include('index.php');
 <div class="overlay" id="overlay"></div>
 <div class="login-page">
     <div class="form">
+        <?php
+            if(isset($_SESSION['status']))
+            {
+                ?>
+                <div class = "alert alert-success">
+                    <h5><?= $_SESSION['status']; ?></h5>
+                </div>
+                <?php
+                unset($_SESSION['status']);
+            }
+        ?>
         <span class="close-icon" id="close-login-form">×</span>
         <form class="login-form" action="functions/authcode.php" method="POST">
             <h2 style="color: black;"><i>Welcome to Eurasian!</i></h2>

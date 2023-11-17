@@ -29,23 +29,25 @@ include('includes/header.php');
 
                         if (mysqli_num_rows($users) > 0) {
                             foreach ($users as $item) {
-                                ?>
-                                <tr>
-                                    <td><?= $item['id']; ?></td>
-                                    <td><?= $item['name']; ?></td>
-                                    <td><?= $item['email']; ?></td>
-                                    <td><?= $item['contact']; ?></td>
-                                    <td><?= $item['address']; ?></td>
-                                    <td><?= $item['status'] == '0' ? "Active" : "Banned" ?></td>
-                                    <td>
-                                        <?php if ($item['status'] == '0' && $item['role_as'] != 1) { ?>
-                                            <button type="button" class="btn btn-sm btn-danger ban_users_btn" value="<?= $item['id']; ?>">Ban</button>
-                                        <?php } elseif ($item['status'] != '0' && $item['role_as'] != 1) { ?>
-                                            <button type="button" class="btn btn-sm btn-success unban_users_btn" value="<?= $item['id']; ?>">Unban</button>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
-                                <?php
+                                if ($item['role_as'] != 1) {
+                                    ?>
+                                    <tr>
+                                        <td><?= $item['id']; ?></td>
+                                        <td><?= $item['name']; ?></td>
+                                        <td><?= $item['email']; ?></td>
+                                        <td><?= $item['contact']; ?></td>
+                                        <td><?= $item['address']; ?></td>
+                                        <td><?= $item['status'] == '0' ? "Active" : "Banned" ?></td>
+                                        <td>
+                                            <?php if ($item['status'] == '0') { ?>
+                                                <button type="button" class="btn btn-sm btn-danger ban_users_btn" value="<?= $item['id']; ?>">Ban</button>
+                                            <?php } elseif ($item['status'] != '0') { ?>
+                                                <button type="button" class="btn btn-sm btn-success unban_users_btn" value="<?= $item['id']; ?>">Unban</button>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
                             }
                         } else {
                             echo "No records found";

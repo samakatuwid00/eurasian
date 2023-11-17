@@ -61,8 +61,8 @@ include('includes/header.php');
                             <div class="col-md-12">
                                 <label class="mb-0">Upload Image</label>
                                 <input type="file" required name="image" class="form-control mb-2">
-                                <label class="mb-0">Current Image</label>
-                                <img src="../Images/<?= isset($data['image']) ? $data['image'] : ''; ?>" alt="Rooms Image" height="50px" width="50px">
+                                <!-- <label class="mb-0">Current Image</label>
+                                <img src="../Images/<?= isset($data['image']) ? $data['image'] : ''; ?>" alt="Rooms Image" height="50px" width="50px"> -->
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

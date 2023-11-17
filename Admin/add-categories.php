@@ -45,11 +45,11 @@ include('includes/header.php');
                             </div>
                             <div class="col-md-6">
                                 <label for="status">Status</label>
-                                <input type="checkbox" name="status" id="status" required>
+                                <input type="checkbox" name="status" id="status">
                             </div>
                             <div class="col-md-6">
                                 <label for="popular">Popular</label>
-                                <input type="checkbox" name="popular" id="popular" required>
+                                <input type="checkbox" name="popular" id="popular">
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary" name="add_categories_btn">Add</button>

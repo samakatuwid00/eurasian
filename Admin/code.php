@@ -172,6 +172,7 @@ else if (isset($_POST['update_rooms_btn']))
     $small_description = $_POST['small_description'];
     $description = $_POST['description'];
     $selling_price = $_POST['selling_price'];
+    $qty = $_POST['qty'];
     $meta_title = $_POST['meta_title'];
     $meta_description = $_POST['meta_description'];
     $meta_keywords = $_POST['meta_keywords'];
@@ -198,8 +199,8 @@ else if (isset($_POST['update_rooms_btn']))
         $update_filename = $old_image;
     }
 
-    $update_rooms_query = "UPDATE rooms SET name='$name',slug='$slug',small_description='$small_description',
-    description='$description',selling_price='$selling_price',meta_title='$meta_title',
+    $update_rooms_query = "UPDATE rooms SET category_id='$category_id',name='$name',slug='$slug',small_description='$small_description',
+    description='$description',selling_price='$selling_price', qty='$qty', meta_title='$meta_title',
     meta_description='$meta_description',meta_keywords='$meta_keywords',status='$status',trending='$trending',
     image='$update_filename' WHERE id='$rooms_id'";
     $update_rooms_query_run = mysqli_query($con, $update_rooms_query);

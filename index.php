@@ -236,9 +236,9 @@ include('includes/header.php'); ?>
                 <h3>Get in Touch</h3>
                     <p>If you have any questions or inquiries, feel free to contact us. We're here to assist you!</p>
                     <ul class="contact-details">
-                        <li><i class="material-icons">location_on</i>123 Paradise Street, Seaside City</li>
-                        <li><i class="material-icons">phone</i>+1 (555) 123-4567</li>
-                        <li><i class="material-icons">email</i>info@eurasianparadise.com</li>
+                        <li><i class="material-icons">location_on</i>Zone 2 Balogo, Pasacao, Camarines Sur</li>
+                        <li><i class="material-icons">phone</i>(054) 513 9707</li>
+                        <li><i class="material-icons">email</i>eurasian32@gmail.com</li>
                     </ul>
                     <div class="social-icons">
                         <a href="https://www.facebook.com/pages/Eurasian-Paradise-Resort-Pasacao/741242442587025" target="_blank"><i class="fab fa-facebook"></i></a>
