@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2023 at 09:33 AM
+-- Generation Time: Nov 22, 2023 at 06:25 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,10 +46,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `status`, `popular`, `image`, `meta_title`, `meta_description`, `meta_keywords`, `created_at`) VALUES
-(1, 'Cottage', 'cottage', 'cottagecottage', 0, 0, '1697203789-jpg', 'Bamboo', 'bamboo', 'bamboobamboo', '2023-10-13 13:29:49'),
-(2, 'Rooms', 'rooms', 'roomsrooms', 0, 1, '1697203838-jpg', 'Rooms', 'roomsrooms', 'rooms', '2023-10-13 13:30:38'),
-(3, 'Octagon', 'octagon', 'octagonoctagon', 0, 1, '1697203941-jpg', 'Octagon', 'octagonoctagon', 'octagon', '2023-10-13 13:32:21'),
-(6, 'Pavilion', 'pavilion', 'pavilionpavilion', 0, 1, '1697600352-jpg', 'pavilion', 'pavilion', 'pavilion', '2023-10-18 03:40:59');
+(9, 'Cottage', 'cottage', 'cottagecottage', 0, 1, '1699317423-jpg', 'Cottage', 'cottagecottage', 'cottagecottage', '2023-11-07 01:46:14');
 
 -- --------------------------------------------------------
 
@@ -80,12 +77,8 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `category_id`, `name`, `slug`, `small_description`, `description`, `selling_price`, `image`, `qty`, `status`, `trending`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`) VALUES
-(1, 6, 'Bamboo Cottage', 'cottage', 'cottage', 'cottage', 0, '1697291172.jpg', 0, 0, 1, 'Bamboo Cottage', 'Bamboo Cottage', 'Bamboo Cottage', '2023-10-14 13:46:12'),
-(5, 2, 'Bermuda', 'Bermuda', 'Bermuda', 'Bermuda', 0, '1697609170-jpg', 0, 0, 1, 'Bermuda', 'Bermuda', 'Bermuda', '2023-10-18 06:06:10'),
-(6, 3, 'Pentagon', 'Pentagon', 'PentagonPentagon', 'PentagonPentagon', 0, '1697609233-jpg', 0, 0, 0, 'Pentagon', 'Pentagon', 'Pentagon', '2023-10-18 06:07:13'),
-(7, 0, 'Native', 'Native', 'Native', 'Native', 0, '1697609338-jpg', 0, 0, 1, 'Native', 'Native', 'Native', '2023-10-18 06:08:58'),
-(8, 1, 'Concrete', 'Concrete', 'ConcreteConcrete', 'ConcreteConcrete', 0, '1697612757-jpg', 0, 0, 0, 'Concrete', 'ConcreteConcrete', 'ConcreteConcrete', '2023-10-18 07:05:57'),
-(9, 2, 'Elegance', 'Elegance', 'Elegance', 'Elegance', 0, '1697613527-jpg', 0, 0, 1, 'Elegance', 'Elegance', 'Elegance', '2023-10-18 07:18:47');
+(18, 9, 'Bamboo Cottage', 'cottage', 'cottagecottage', 'cottagecottage', 1000, '1699322555-jpg', 5, 0, 1, 'Bamboo Cottage', 'cottagecottage', 'cottagecottage', '2023-11-07 02:08:19'),
+(19, 9, 'Concrete Cottage', '2nd cottage', 'cottagecottage', 'cottagecottage', 1500, '1699323355-jpg', 0, 0, 1, 'Concrete Cottage', 'cottagecottage', 'cottagecottage', '2023-11-07 02:18:06');
 
 -- --------------------------------------------------------
 
@@ -99,19 +92,23 @@ CREATE TABLE `users` (
   `email` varchar(191) NOT NULL,
   `contact` varchar(20) NOT NULL,
   `address` varchar(191) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT current_timestamp(),
   `password` varchar(191) NOT NULL,
   `role_as` tinyint(4) NOT NULL DEFAULT 0,
-  `confirmPass` varchar(191) NOT NULL
+  `confirmPass` varchar(191) NOT NULL,
+  `verify_token` varchar(191) NOT NULL,
+  `verify_status` tinyint(2) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `contact`, `address`, `password`, `role_as`, `confirmPass`) VALUES
-(1, 'admin', 'admin', '2147483647', 'will follow up', 'admin', 1, 'admin'),
-(2, 'user', 'test@gmail.com', '2147483647', 'will follow up', 'user', 0, 'user'),
-(3, 'patrick', 'pat@gmail.com', '09566422784', 'will follow up', 'pat', 0, 'pat');
+INSERT INTO `users` (`id`, `name`, `email`, `contact`, `address`, `status`, `password`, `role_as`, `confirmPass`, `verify_token`, `verify_status`, `created_at`) VALUES
+(1, 'admin', 'admin@eurasian.com', '2147483647', 'will follow up', 0, 'admin', 1, 'admin', '', 1, '2023-11-12 03:05:27'),
+(41, 'Roger Abay', 'abayrogerjr07@gmail.com', '09566422783', 'will follow up', 0, '123', 0, '123', '71994268ace5f3fd2fa777546663c8a2', 0, '2023-11-17 16:59:41'),
+(53, 'Roger Abay', 'abaygherjr07@gmail.com', '09566422783', 'will follow up', 0, '123', 0, '123', '775dc08e3992a57bedb7502ceddd043c', 1, '2023-11-21 04:30:31');
 
 --
 -- Indexes for dumped tables
@@ -143,19 +140,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

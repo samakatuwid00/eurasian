@@ -5,11 +5,9 @@ include('../smtp/PHPMailerAutoload.php');
 
 $email = $password = $err_msg = "";
 $remember = "";
+$subject = "Email Verification from Eurasian Paradise Resort";
 
 if (isset($_POST['register_btn'])) {
-    // Generate OTP
-    //$otp = rand(100000, 999999);
-
     // Your existing code for other user inputs
     $name = mysqli_real_escape_string($con, $_POST['name']);
     $email = mysqli_real_escape_string($con, $_POST['email']);
@@ -24,34 +22,68 @@ if (isset($_POST['register_btn'])) {
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
     if (mysqli_num_rows($check_email_query_run) > 0) {
-        smtp_mailer($email,$verify_token,$subject);
+        // Email already registered, decline sending verification
         $_SESSION['message'] = "Email already registered";
         header('Location: ../registration.php');
     } else {
-        // Insert user with OTP into the database
-        $insert_query = "INSERT INTO users (name,email,contact,address,status,password,confirmPass,verify_token) VALUES ('$name','$email','$contact','$address','$status','$password','$confirmPass','$verify_token')";
-        $insert_query_run = mysqli_query($con, $insert_query);
+        // Assume $status is the value you want to set (you can change it accordingly)
+        $status = 2;
 
-        if ($insert_query_run) {
-            // Send verification email
-            $subject = "Email Verification from Eurasian Paradise Resort";
-            // $emailbody=
-            // "<h2>You have Registered with Eurasian Paradise Resort</h2>
-            // <h5>Verify your email address to Login with the below given link</h5>
-            // <br></br>
-            // <a href='http://localhost/Eurasian%20Paradise%20Resort%20System/verify-email.php?token=$verify_token'> Click Me </a>";
-            // //$msg = $emailbody . $otp;
-            smtp_mailer($email,$verify_token,$subject);
+        if ($password == $confirmPass) {
+            $insert_query = "INSERT INTO users (name, email, contact, address, status, password, confirmPass, verify_token) 
+                            VALUES ('$name','$email','$contact','$address','$status','$password','$confirmPass','$verify_token')";
+            $insert_query_run = mysqli_query($con, $insert_query);
 
-            $_SESSION['message'] = "Registered Successfully. Check your email for verification.";
-            header('Location: ../login.php');
+            if ($insert_query_run) {
+                // Send verification email
+                $subject = "Email Verification from Eurasian Paradise Resort";
+                $emailbody = "<h2>You have Registered with Eurasian Paradise Resort</h2>
+                    <h5>Verify your email address to Login with the below given link</h5>
+                    <br></br>
+                    <a href='http://localhost/Eurasian%20Paradise%20Resort%20System/verify-email.php?token=$verify_token'> Click Me </a>";
+                smtp_mailer($email, $verify_token, $subject);
+
+                // Update the status to 2
+                $update_status_query = "UPDATE users SET status = '$status' WHERE email = '$email'";
+                mysqli_query($con, $update_status_query);
+
+                $_SESSION['message'] = "Registered Successfully. Check your email for verification.";
+                header('Location: ../login.php');
+            } else {
+                $_SESSION['message'] = "Something went wrong";
+                header('Location: ../registration.php');
+            }
         } else {
-            $_SESSION['message'] = "Something went wrong";
+            $_SESSION['message'] = "Passwords Do Not Match!";
             header('Location: ../registration.php');
         }
     }
 }
-else if(isset($_POST['login_btn'])) {
+    //  else {
+    //     // Insert user with OTP into the database
+        // $insert_query = "INSERT INTO users (name,email,contact,address,status,password,confirmPass,verify_token) VALUES ('$name','$email','$contact','$address','$status','$password','$confirmPass','$verify_token')";
+    //     $insert_query_run = mysqli_query($con, $insert_query);
+
+    //     if ($insert_query_run) {
+    //         // Send verification email
+    //         $subject = "Email Verification from Eurasian Paradise Resort";
+    //         // $emailbody=
+    //         // "<h2>You have Registered with Eurasian Paradise Resort</h2>
+    //         // <h5>Verify your email address to Login with the below given link</h5>
+    //         // <br></br>
+    //         // <a href='http://localhost/Eurasian%20Paradise%20Resort%20System/verify-email.php?token=$verify_token'> Click Me </a>";
+    //         // //$msg = $emailbody . $otp;
+    //         smtp_mailer($email,$verify_token,$subject);
+
+    //         $_SESSION['message'] = "Registered Successfully. Check your email for verification.";
+    //         header('Location: ../login.php');
+    //     } else {
+    //         $_SESSION['message'] = "Something went wrong";
+    //         header('Location: ../registration.php');
+    //     }
+    // }
+
+if(isset($_POST['login_btn'])) {
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
 
@@ -103,7 +135,6 @@ else if(isset($_POST['login_btn'])) {
 }
 // $otp=rand(100000,999999);
 $receiverEmail=$email;
-$subject="Email Verification from Eurasian Paradise Resort";
 
 // echo smtp_mailer($receiverEmail,$subject,$emailbody);
 function smtp_mailer($email,$verify_token,$subject){

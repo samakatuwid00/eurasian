@@ -1,4 +1,6 @@
 <?php
+$page_title = "Password Change Update";
+
 include('index.php');
 ?>
 <style>
@@ -169,28 +171,38 @@ include('index.php');
 <div class="overlay" id="overlay"></div>
 <div class="login-page">
     <div class="form">
+        <?php
+            if(isset($_SESSION['status']))
+            {
+                ?>
+                <div class = "alert alert-success">
+                    <h5><?= $_SESSION['status']; ?></h5>
+                </div>
+                <?php
+                unset($_SESSION['status']);
+            }
+        ?>
         <span class="close-icon" id="close-login-form">×</span>
-        <form class="login-form" action="functions/authcode.php" method="POST">
-            <h2 style="color: black;"><i>Welcome to Eurasian!</i></h2>
+        <form action="functions/password-reset-code.php" method="POST">
+            <h2 style="color: black;"><i>New Password</i></h2>
+
+            <input type="text" name="password_token" value="<?php if(isset($_GET['token'])){echo $_GET['token'];} ?>">
             <div class="inputbox">
                 <ion-icon name="mail-outline"></ion-icon>
-                <input type="text" name="email" id="email" value="<?php if(isset($_GET['email'])){echo $_GET['email'];} ?>" required>
+                <input type="text" name="email" id="email" value="<?php if(isset($_GET['email'])){echo $_GET['email'];} ?>" class="form-control" required>
                 <label for="">Email</label>
             </div>
             <div class="inputbox">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input type="password" name="password" required>
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="text" name="new_password" id="new_password" class="form-control" required>
                 <label for="">Password</label>
             </div>
-            <div class="remember-forget">
-                <label for="remember">
-                    <input type="checkbox" id="remember" name="remember"<?php if(!empty($remember)) { ?> checked <?php } elseif(isset($_COOKIE["remember"])) { ?> checked <?php } ?>>Remember Me
-                </label>
-                <a href="password-reset.php">Forget Password</a>
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="text" name="confirm_pass" id="confirm_pass" class="form-control" required>
+                <label for="">Confirm Password</label>
             </div>
-            <button type="submit" name="login_btn" class="button">Log In</button>
-            <p class="message" style = "color: black">Not registered? <a href="registration.php">Create an account</a></p>
-            <p class="message" style="color: black">Did not receive verification email? <a href="resend-email-verification.php">Resend</a></p>
+            <button type="submit" name="password_update" class="button">Update</button>
         </form> 
     </div>
 </div>

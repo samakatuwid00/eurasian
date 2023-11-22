@@ -396,7 +396,14 @@ h2 {
     min-height: 0px;
     box-sizing: border-box;
 }
-
+.read-more {
+    background-color: #007BFF; /* Change the background color as needed */
+    color: #fff; /* Change the text color as needed */
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .amenities h2 {
     font-size: 38px;
     margin-bottom: 20px;

@@ -150,6 +150,36 @@ include('includes/header.php'); ?>
             </div>
         </div>
     </section>
+    <!-- About Us -->
+    <section class="about-us" id="our-about-us-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 about-us-content">
+                    <h2>About Us</h2>
+                    <p>Welcome to Eurasian Paradise Resort, where luxury meets tranquility. Nestled amidst the pristine beauty of nature, our resort offers you an unforgettable escape from the hustle and bustle of everyday life.</p>
+                    <p>With a legacy of hospitality excellence spanning decades, we take pride in delivering a remarkable experience to our esteemed guests. Our commitment to providing top-notch services and creating cherished memories has earned us a special place in the hearts of travelers from around the world.</p>
+                    <p>At Eurasian Paradise Resort, we believe in the power of relaxation and rejuvenation. Our meticulously designed rooms, each with its unique charm, offer a perfect blend of comfort and elegance. From breathtaking sea view balconies to luxurious master bedrooms, we cater to your every desire.</p>
+                </div>
+                <div class="col-md-6 about-us-image">
+                    <div class="about-image-container">
+                        <img src="Images/image (28).jpg" alt="About Us Image">
+                        <div class="image-overlay">
+                            <?php
+                            // Check if the user is logged in
+                            if (isset($_SESSION['auth']) && $_SESSION['auth']) {
+                                // User is logged in, display the "categories.php" link
+                                echo '<a href="categories.php" class="book-now-button">Book Now!</a>';
+                            } else {
+                                // User is not logged in, display the "login.php" link
+                                echo '<a href="login.php" class="book-now-button">Book Now!</a>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 <!-- Testimonial Section -->
     <section class="testimonials">
         <div class="testimonial-container">
