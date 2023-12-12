@@ -21,12 +21,13 @@ function getRoomsByCategory($category_id)
     $query = "SELECT * FROM rooms WHERE category_id='$category_id' AND status ='0'";
     return $query_run = mysqli_query($con, $query);
 }
-function getIDActive($table, $id)
-{
-    global $con;
-    $query = "SELECT * FROM $table WHERE id='$id' AND status ='0'";
-    return $query_run = mysqli_query($con, $query);
-}
+// function getIDActive($table, $id)
+// {
+//     global $con;
+//     $query = "SELECT * FROM $table WHERE id='$id' AND status ='0'";
+//     return $query_run = mysqli_query($con, $query);
+// }
+
 function redirect($url, $message)
 {
     $_SESSION['message'] = $message;

@@ -7,7 +7,8 @@ $email = $password = $err_msg = "";
 $remember = "";
 $subject = "Email Verification from Eurasian Paradise Resort";
 
-if (isset($_POST['register_btn'])) {
+if (isset($_POST['register_btn'])) 
+{
     // Your existing code for other user inputs
     $name = mysqli_real_escape_string($con, $_POST['name']);
     $email = mysqli_real_escape_string($con, $_POST['email']);
@@ -82,8 +83,8 @@ if (isset($_POST['register_btn'])) {
     //         header('Location: ../registration.php');
     //     }
     // }
-
-if(isset($_POST['login_btn'])) {
+if(isset($_POST['login_btn'])) 
+{
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
 
@@ -94,22 +95,45 @@ if(isset($_POST['login_btn'])) {
     $login_query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' ";
     $login_query_run = mysqli_query($con, $login_query);
 
+    // $result=mysqli_query($con,$login_query);
+    // $row=mysqli_fetch_array($result);
+
+    // if($row["role_as"]==0)
+    // {
+    //     $_SESSION['username'] = $name;
+    //     $_SESSION['role_as'] = 0;
+    //     header("Location: ../myProfile.php");
+    // }
+    // elseif($row["role_as"]==1)
+    // {
+    //     $_SESSION['username'] = $name;
+    //     $_SESSION['role_as'] = 1;
+    //     header("Location: ../myProfile.php");
+    // }
+
     if (mysqli_num_rows($login_query_run) > 0) {
         $userdata = mysqli_fetch_array($login_query_run);
+        $users_id = $userdata['id'];
         $username = $userdata['name'];
         $useremail = $userdata['email'];
+        $usercontact = $userdata['contact'];
+        $useraddress = $userdata['address'];
         $role_as = $userdata['role_as'];
-        $status = $userdata['status']; // Add this line to get the user's status
+        $status = $userdata['status']; 
 
         if ($status != 0) {
             // User is banned, prevent login
             $_SESSION['message'] = "Sorry, You Are Banned And Cannot Log In";
             header('Location: ../login.php');
         } else {
+            $_SESSION['loggedinId'] = $users_id;
             $_SESSION['auth'] = true;
             $_SESSION['auth_user'] = [
                 'name' => $username,
-                'email' => $useremail
+                'email' => $useremail,
+                'contact' => $usercontact,
+                'address' => $useraddress,
+                'status' => $status
             ];
             $_SESSION['role_as'] = $role_as;
 
@@ -133,7 +157,101 @@ if(isset($_POST['login_btn'])) {
         header('Location: ../login.php');
     }
 }
+if (isset($_POST['editProfile_btn'])) {
+    $name = $_REQUEST['name'];
+    $contact = $_REQUEST['contact'];
+    $address = $_REQUEST['address'];
+
+    if ((!empty($name)) && (!empty($contact)) && (!empty($address))) {
+        $users_id = $_SESSION['loggedinId'];
+        $updateQuery = "UPDATE users SET name = '$name', contact = '$contact', address = '$address' WHERE id = '$users_id'";
+
+        $updateQuery_run = mysqli_query($con, $updateQuery);
+
+        if ($updateQuery_run) {
+            $_SESSION['message'] = "Please Login Again. To See Changes!";
+            header('Location: ../logout.php');
+            exit; // Add exit to stop further execution
+
+            // The code below won't be reached
+            if ($updateQuery_run) {
+                header('Location: ../login.php');
+                exit; // Make sure to add exit here as well
+            }
+        } else {
+            $_SESSION['message'] = "Error updating profile: " . mysqli_error($con);
+            header('Location: ../myProfile.php');
+            exit; // Make sure to add exit here as well
+        }
+    }
+}
+// {
+
+// }
 // $otp=rand(100000,999999);
+// if (isset($_POST['editProfile_btn'])) {
+//     if(isset($_SESSION['auth']))
+//     {
+//         $name = mysqli_real_escape_string($con, $_POST['name']);
+//         $contact = mysqli_real_escape_string($con, $_POST['contact']);
+//         $address = mysqli_real_escape_string($con, $_POST['address']);
+
+//         // Assuming $_SESSION['auth'] contains the user's ID
+//         $userId = $_SESSION['auth'];
+        // $updateQuery = "UPDATE users SET name = '$name', contact = '$contact', address = '$address' WHERE id = $userId";
+
+//         $updateQuery_run = mysqli_query($con, $updateQuery);
+
+//         if ($updateQuery_run) {
+//             $_SESSION['message'] = "Please Login Again. To See Changes!";
+//             header('Location: ../myProfile.php');
+//         } else {
+//             $_SESSION['message'] = "Error updating profile: " . mysqli_error($con);
+//             header('Location: ../myProfile.php');
+//         }
+//     }                
+// }
+if(isset($_POST['sendMessage_btn']))
+{
+    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $email = mysqli_real_escape_string($con, $_POST['email']);
+    $message = mysqli_real_escape_string($con, $_POST['message']);
+
+    $insert_query = "INSERT INTO notifications(name,email,message,seen)VALUES('$name','$email','$message','1')";
+    
+    $result = mysqli_query($con,$insert_query);
+
+    if($result)
+    {
+        $_SESSION['message'] = "Message Sent! Check Your Email For Updates";
+        header('Location: ../index.php');    
+    }
+
+}
+if(isset($_POST['book_btn']))
+{
+    $user_id = mysqli_real_escape_string($con, $_POST['user_id']);
+    $room_name = mysqli_real_escape_string($con, $_POST['room_name']);
+    $book_name = mysqli_real_escape_string($con, $_POST['book_name']);
+    $book_email = mysqli_real_escape_string($con, $_POST['book_email']);
+    $book_address = mysqli_real_escape_string($con, $_POST['book_address']);
+    $book_contact = mysqli_real_escape_string($con, $_POST['book_contact']);
+    $book_persons = mysqli_real_escape_string($con, $_POST['book_persons']);
+    $referenceNum = mysqli_real_escape_string($con, $_POST['referenceNum']);
+    $book_date = mysqli_real_escape_string($con, $_POST['book_date']);
+    $book_checkout = mysqli_real_escape_string($con, $_POST['book_checkout']);
+
+    $insert_booking_query = "INSERT INTO booking (user_id,room_name,book_name,book_email,book_address,book_contact,book_persons,referenceNum,book_date,book_checkout)
+                            VALUES('$user_id','$room_name','$book_name','$book_email','$book_address','$book_contact','$book_persons','$referenceNum','$book_date','$book_checkout')";
+    
+    $result = mysqli_query($con,$insert_booking_query);
+
+    if($result)
+    {
+        header('Location: ../myBooking.php');    
+    }
+}
+
 $receiverEmail=$email;
 
 // echo smtp_mailer($receiverEmail,$subject,$emailbody);

@@ -5,15 +5,15 @@ include('../functions/myfunctions.php');
 
 if(isset($_POST['add_categories_btn']))
 {
-    $name = $_POST['name'];
-    $slug = $_POST['slug'];
-    $description = $_POST['description'];
-    $meta_title = $_POST['meta_title'];
-    $meta_description = $_POST['meta_description'];
-    $meta_keywords = $_POST['meta_keywords'];
-    $status = isset ($_POST['status']) ? '1':'0';
-    $popular = isset ($_POST['popular']) ? '1':'0';
-
+    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $slug = mysqli_real_escape_string($con, $_POST['slug']);
+    $description = mysqli_real_escape_string($con, $_POST['description']);
+    $meta_title = mysqli_real_escape_string($con, $_POST['meta_title']);
+    $meta_description = mysqli_real_escape_string($con, $_POST['meta_description']);
+    $meta_keywords = mysqli_real_escape_string($con, $_POST['meta_keywords']);
+    $status = isset($_POST['status']) ? '1' : '0';
+    $popular = isset($_POST['popular']) ? '1' : '0';
+    
     $image = $_FILES['image']['name'];
 
     $path = "../Images";
@@ -124,6 +124,7 @@ else if(isset($_POST['add_rooms_btn']))
     $small_description = $_POST['small_description'];
     $description = $_POST['description'];
     $selling_price = $_POST['selling_price'];
+    $qty = $_POST['qty'];
     $meta_title = $_POST['meta_title'];
     $meta_description = $_POST['meta_description'];
     $meta_keywords = $_POST['meta_keywords'];
@@ -139,9 +140,9 @@ else if(isset($_POST['add_rooms_btn']))
 
     if($name != "" && $slug !="" && $description != "")
     {
-        $rooms_query= "INSERT INTO rooms (category_id, name, slug, small_description, description, selling_price,
+        $rooms_query= "INSERT INTO rooms (category_id, name, slug, small_description, description, selling_price, qty,
         meta_title, meta_description, meta_keywords, status, trending, image) VALUES ('$category_id', '$name', '$slug',
-        '$small_description', '$description', '$selling_price', '$meta_title', '$meta_description', '$meta_keywords',
+        '$small_description', '$description', '$selling_price', '$qty', '$meta_title', '$meta_description', '$meta_keywords',
         '$status', '$trending', '$filename')";
     
         $rooms_query_run = mysqli_query($con, $rooms_query);
@@ -251,7 +252,8 @@ else if (isset($_POST['delete_rooms_btn']))
         echo 500;
     }
 }
-elseif (isset($_POST['ban_users_btn'])) {
+elseif (isset($_POST['ban_users_btn'])) 
+{
     // Handle user banning
     $users_id = mysqli_real_escape_string($con, $_POST['users_id']);
 
@@ -260,11 +262,13 @@ elseif (isset($_POST['ban_users_btn'])) {
     $ban_query_run = mysqli_query($con, $ban_query);
     if ($ban_query_run) {
         echo 200; // Success
+        // redirect("users.php", "User Banned Successfully");
     } else {
         echo 500; // Error
     }
 }
-elseif (isset($_POST['unban_users_btn'])) {
+elseif (isset($_POST['unban_users_btn'])) 
+{
     // Handle user banning
     $users_id = mysqli_real_escape_string($con, $_POST['users_id']);
 
@@ -273,11 +277,11 @@ elseif (isset($_POST['unban_users_btn'])) {
     $ban_query_run = mysqli_query($con, $ban_query);
     if ($ban_query_run) {
         echo 200; // Success
+        // redirect("users.php", "Unbanned User Successfully");
     } else {
         echo 500; // Error
     }
 }
-
 else
 {
     header('Location: ../index.php');

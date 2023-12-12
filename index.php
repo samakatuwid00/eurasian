@@ -1,7 +1,8 @@
 <?php 
 include('functions/userfunctions.php');
-include('includes/header.php'); ?>
+include('includes/header.php'); 
 
+?>
     <?php
     if (isset($_SESSION['message'])) {
         ?>
@@ -102,51 +103,25 @@ include('includes/header.php'); ?>
                 <img src="Images/icons8-balcony-96.png" alt="Sea View Balcony" class="icon">
                 <h3>Sea View Balcony</h3>
                 <p>Enjoy breathtaking ocean views from your private balcony.</p>
+                <button class="read-more">Read More</button>
             </div>
             <div class="amenity medium">
                 <img src="Images/icons8-bedroom-96.png" alt="Master Bedrooms" class="icon">
                 <h3>Master Bedrooms</h3>
                 <p>Luxurious master bedrooms for ultimate relaxation.</p>
+                <button class="read-more">Read More</button>
             </div>
             <div class="amenity smaller">
                 <img src="Images/icons8-cafe-96.png" alt="Large Cafe" class="icon">
                 <h3>Large Cafe</h3>
                 <p>Indulge in delicious meals and beverages at our spacious cafe.</p>
+                <button class="read-more">Read More</button>
             </div>
             <div class="amenity small">
                 <img src="Images/icons8-wifi-96.png" alt="WiFi Coverage" class="icon">
                 <h3>WiFi Coverage</h3>
-                <p>Stay connected with high-speed WiFi coverage throughout the property.</p>
-            </div>
-        </div>
-    </section>
-    <!-- About Us -->
-    <section class="about-us" id="our-about-us-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 about-us-content">
-                    <h2>About Us</h2>
-                    <p>Welcome to Eurasian Paradise Resort, where luxury meets tranquility. Nestled amidst the pristine beauty of nature, our resort offers you an unforgettable escape from the hustle and bustle of everyday life.</p>
-                    <p>With a legacy of hospitality excellence spanning decades, we take pride in delivering a remarkable experience to our esteemed guests. Our commitment to providing top-notch services and creating cherished memories has earned us a special place in the hearts of travelers from around the world.</p>
-                    <p>At Eurasian Paradise Resort, we believe in the power of relaxation and rejuvenation. Our meticulously designed rooms, each with its unique charm, offer a perfect blend of comfort and elegance. From breathtaking sea view balconies to luxurious master bedrooms, we cater to your every desire.</p>
-                </div>
-                <div class="col-md-6 about-us-image">
-                    <div class="about-image-container">
-                        <img src="Images/image (28).jpg" alt="About Us Image">
-                        <div class="image-overlay">
-                            <?php
-                            // Check if the user is logged in
-                            if (isset($_SESSION['auth']) && $_SESSION['auth']) {
-                                // User is logged in, display the "categories.php" link
-                                echo '<a href="categories.php" class="book-now-button">Book Now!</a>';
-                            } else {
-                                // User is not logged in, display the "login.php" link
-                                echo '<a href="login.php" class="book-now-button">Book Now!</a>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
+                <p>Stay connected with high-speed WiFi coverage within the property.</p>
+                <button class="read-more">Read More</button>
             </div>
         </div>
     </section>
@@ -198,7 +173,7 @@ include('includes/header.php'); ?>
                     </div>
                 </div>
                 <div class="testimonial-item">
-                    <img src="Images/icons8-user-96.png" alt="User 2" class="testimonial-image">
+                <img src="Images/icons8-user-96.png" alt="User 2" class="testimonial-image">
                     <div class="testimonial-text">
                         <p>"A perfect escape from the city's chaos. The serene environment and comfortable rooms made my vacation truly relaxing."</p>
                         <div class="testimonial-author">
@@ -281,15 +256,28 @@ include('includes/header.php'); ?>
                 </div>
                 <div class="col-md-6 contact-form">
                     <h3>Contact Form</h3>
-                    <form>
-                        <input type="text" name="name" placeholder="Your Name" required>
-                        <input type="email" name="email" placeholder="Your Email" required>
-                        <textarea name="message" placeholder="Your Message" required></textarea>
-                        <button type="submit" class="btn btn-primary">Send</button>
+                    <form id="frm_data">
+                        <input type="text" name="name" id="name" placeholder="Your Name" required>
+                        <input type="email" name="email" id="email" placeholder="Your Email" required>
+                        <div>
+                        <textarea style="resize:none !important;" name="message" id="message" rows="4" cols="10" class='form-control' maxlength="99" required></textarea>
+                        <span id="charCount">0/99</span>
+                        </div>
+                        <button type="submit" id="notify" class="btn btn-primary">Send</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
+<style>
+div {
+position: relative;
+}
+#charCount {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: gray; /* You can style the count as you prefer */
+}
+</style>
 <?php include('includes/footer.php'); ?>

@@ -19,8 +19,8 @@
                 <?=$_SESSION['auth_user']['name']; ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
-                <li><a class="dropdown-item" href="#">My Bookings</a></li>
-                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                <li><a class="dropdown-item" href="myBooking.php">My Bookings</a></li>
+                <li><a class="dropdown-item" href="myProfile.php">My Profile</a></li>
                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
             </div>            
@@ -36,7 +36,6 @@
         }
         ?>
         <span class="material-symbols-outlined" onclick="showMenu()"> menu </span>
-        
     </div>
 </div>
 <script>

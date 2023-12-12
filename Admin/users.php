@@ -14,7 +14,6 @@ include('includes/header.php');
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Contact</th>
@@ -32,7 +31,6 @@ include('includes/header.php');
                                 if ($item['role_as'] != 1) {
                                     ?>
                                     <tr>
-                                        <td><?= $item['id']; ?></td>
                                         <td><?= $item['name']; ?></td>
                                         <td><?= $item['email']; ?></td>
                                         <td><?= $item['contact']; ?></td>

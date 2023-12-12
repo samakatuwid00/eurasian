@@ -15,7 +15,6 @@ include('includes/header.php');
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
                             <th>Image</th>
                             <th>Status</th>
@@ -33,7 +32,6 @@ include('includes/header.php');
                             {
                                 ?>
                                     <tr>
-                                        <td><?= $item['id']; ?></td>
                                         <td><?= $item['name']; ?></td>
                                         <td>
                                             <img src= "../Images/<?= $item['image']; ?>" width = "50px" height="50px" alt="<?= $item['name']; ?>">
@@ -65,7 +63,7 @@ include('includes/header.php');
                 </table>
             </div>
             <div style="text-align: left;">
-                <a href="add-categories.php" class="btn btn-success">Add Room Category</a>
+                <a href="add-categories.php" class="btn btn-success">Add Category</a>
             </div>            
         </div>
     </div>

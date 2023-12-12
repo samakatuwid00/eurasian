@@ -221,24 +221,23 @@ body {
         cursor: pointer;
     }
 }
-
 .container {
     position: relative;
     margin-top: -50px;
     padding: 20px;
-    background-color: #f3f3f3;
+    background-color: #f1ece9;
     border-radius: 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid #c05a1b;
 }
 .checking-form {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-      
 .checking-form label {
     font-weight: bold;
     margin-right: 10px;
@@ -305,7 +304,7 @@ body {
 .room-options {
     margin: 45px;
     padding: 50px 0;
-    background-color: #f3f8fa;
+    background: linear-gradient(to bottom, rgb(255, 255, 255), #0074d9); /* Gradient from light blue to darker blue */
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -335,8 +334,8 @@ h2 {
 }
 
 .room-option {
-    background-color: #faf2f4;
-    border: 1px solid #ccc;
+    background-color: #f1ece9;
+    border: 2px solid #c05a1b;
     padding: 20px;
     margin-bottom: 30px;
     transition: transform 0.2s ease-in-out;
@@ -397,12 +396,17 @@ h2 {
     box-sizing: border-box;
 }
 .read-more {
-    background-color: #007BFF; /* Change the background color as needed */
-    color: #fff; /* Change the text color as needed */
+    background-color: transparent; /* Set the background color to transparent */
+    color: #000000; /* Set the text color as needed */
+    border: 2px solid #000000; /* Add a solid border with the desired color */
     padding: 5px 10px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.read-more:hover {
+    background-color: #007BFF; /* Change background color on hover if needed */
+    color: #fff; /* Change text color on hover if needed */
 }
 .amenities h2 {
     font-size: 38px;
@@ -564,12 +568,12 @@ h2 {
     font-size: 38px;
 }
 .testimonial-item {
-    background-color: #f3f8fa;
+    background-color: #dee9ec;
     padding: 20px;
 }
 .testimonial-image {
-    width: 100px;
-    height: 100px;
+    width: -100px;
+    height: 200px;
     border-radius: 50%;
     margin: 0 auto 20px;
     display: block;
@@ -608,7 +612,7 @@ h2 {
 }
 /* Contact Us Section */
 .contact {
-    background-color: #f3f8fa;
+    background: linear-gradient(to top, rgb(255, 255, 255), #347eb8); /* Gradient from light blue to darker blue */
     padding: 80px 0;
     text-align: center;
 }
@@ -654,6 +658,15 @@ h2 {
 .contact-details i {
     margin-right: 10px;
     font-size: 18px;
+}
+div {
+    position: relative;
+}
+#charCount {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: gray; /* You can style the count as you prefer */
 }
 .social-icons {
     margin-top: 20px;

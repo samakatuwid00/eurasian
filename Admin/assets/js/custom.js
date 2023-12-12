@@ -79,8 +79,8 @@ $(document).ready(function () {
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        }).then((willPerformAction) => {
-            if (willPerformAction) {
+        }).then((willBan) => {
+            if (willBan) {
                 $.ajax({
                     method: "POST",
                     url: "code.php",
@@ -91,9 +91,7 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response == 200) {
                             swal("Success!", "User Banned Successfully", "success");
-                            // Remove the user row from the table
-                            $("#user_table").load(location.href + " #user_table");
-                            //$("#user_row_" + id).remove();
+                            $("#users_table").load(location.href + " #users_table");
                         } else if (response == 500) {
                             swal("Error!", "Something Went Wrong!", "error");
                         }
@@ -115,8 +113,8 @@ $(document).ready(function () {
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        }).then((willPerformAction) => {
-            if (willPerformAction) {
+        }).then((willUnban) => {
+            if (willUnban) {
                 $.ajax({
                     method: "POST",
                     url: "code.php",
@@ -127,9 +125,7 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response == 200) {
                             swal("Success!", "User Unbanned Successfully", "success");
-                            // Remove the user row from the table
-                            $("#user_table").load(location.href + " #user_table");
-                            //$("#user_row_" + id).remove();
+                            $("#users_table").load(location.href + " #users_table");
                         } else if (response == 500) {
                             swal("Error!", "Something Went Wrong!", "error");
                         }
